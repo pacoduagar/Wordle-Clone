@@ -1,0 +1,360 @@
+/* Base styles for both light and dark mode */
+
+/* General Reset */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  font-family: Arial;
+}
+
+body {
+  background-color: hsl(240, 3%, 7%);
+  /* Dark mode background */
+  color: white;
+  /* Dark mode text color */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding-bottom: 1em;
+  font-size: clamp(.5rem, 2.5vmin, 1.5rem);
+  transition: background-color 0.3s, color 0.3s;
+  /* Smooth transition */
+}
+
+/* Light Mode Styles */
+body.light-mode {
+  background-color: hsl(0, 0%, 98%);
+  /* Light mode background */
+  color: black;
+  /* Light mode text color */
+}
+
+#botones {
+  display: flex;
+  justify-content: space-around;
+}
+
+#botones h1 {
+  display: block;
+  position: relative;
+  bottom:0px;
+}
+
+#botones button {
+  border: white;
+  background-color: hsl(var(--hue, 200),
+      var(--saturation, 1%),
+      calc(var(--lightness-offset, 0%) + var(--lightness, 51%)));
+  width: 200px;
+  color: white;
+  height: 50px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  top:100px;
+}
+
+body.light-mode #botones button {
+  border: black;
+  background-color: hsl(200, 40%, 90%);
+  color: black;
+  height: 50px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#botones button:hover {
+  --lightness-offset: 10%;
+}
+
+/* Keyboard Styles */
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.25em));
+  grid-auto-rows: 3em;
+  gap: .25em;
+  justify-content: center;
+}
+
+/* Key Styles */
+.key {
+  font-size: inherit;
+  grid-column: span 2;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(var(--hue, 200),
+      var(--saturation, 1%),
+      calc(var(--lightness-offset, 0%) + var(--lightness, 51%)));
+  color: white;
+  fill: white;
+  text-transform: uppercase;
+  border-radius: .25em;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Light mode adjustments for key background color */
+
+.key.large {
+  grid-column: span 3;
+}
+
+.key>svg {
+  width: 1.75em;
+  height: 1.75em;
+}
+
+.key:hover,
+.key:focus {
+  --lightness-offset: 10%;
+}
+
+.key.wrong {
+  --lightness: 23%;
+}
+
+.key.wrong-location {
+  --hue: 49;
+  --saturation: 51%;
+  --lightness: 47%;
+}
+
+.key.correct {
+  --hue: 115;
+  --saturation: 29%;
+  --lightness: 43%;
+}
+
+body.light-mode .key {
+  background-color: hsl(200, 40%, 90%);
+  /* Lighter key background */
+  color: black;
+  /* Lighter text color */
+  fill: black;
+}
+
+body.light-mode .key.wrong {
+  background-color: hsl(240, 2%, 23%);
+  color: white;
+
+}
+
+body.light-mode .key.wrong-location {
+  background-color: hsl(49, 51%, 47%);
+  color: white;
+
+}
+
+body.light-mode .key.correct {
+  background-color: hsl(115, 29%, 43%);
+  /* Lighter correct color */
+  color: white;
+}
+
+body.light-mode .key:hover,
+body.light-mode .key:focus {
+  background-color: hsl(200, 40%, 80%);
+  /* Lighter key background */
+}
+
+
+.guess-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: .25em;
+  margin-bottom: 1em;
+}
+
+/* Tile styles */
+.tile {
+  font-size: 2em;
+  color: white;
+  border: .05em solid hsl(240, 2%, 23%);
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transition: transform 250ms linear;
+}
+
+.tile[data-state="active"] {
+  color: white;
+  border-color: hsl(200, 1%, 34%);
+}
+
+.tile[data-state="wrong"] {
+  color: white;
+  border: none;
+  background-color: hsl(240, 2%, 23%);
+}
+
+.tile[data-state="wrong-location"] {
+  color: white;
+  border: none;
+  background-color: hsl(49, 51%, 47%);
+}
+
+.tile[data-state="correct"] {
+  color: white;
+  border: none;
+  background-color: hsl(115, 29%, 43%);
+}
+
+.tile.shake {
+  animation: shake 250ms ease-in-out;
+}
+
+.tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
+.tile.flip {
+  transform: rotateX(90deg);
+}
+
+body.light-mode .tile {
+  color: black;
+  /* Lighter tile text color */
+  border: .05em solid hsl(240, 2%, 80%);
+  /* Lighter tile border */
+}
+
+body.light-mode .tile[data-state="active"] {
+  color: black;
+  border-color: hsl(200, 1%, 34%);
+}
+
+body.light-mode .tile[data-state="wrong"] {
+  color: white;
+  border: none;
+  background-color: hsl(240, 2%, 23%);
+}
+
+body.light-mode .tile[data-state="wrong-location"] {
+  color: white;
+  border: none;
+  background-color: hsl(49, 51%, 47%);
+}
+
+body.light-mode .tile[data-state="correct"] {
+  color: white;
+  border: none;
+  background-color: hsl(115, 29%, 43%);
+}
+
+body.light-mode .tile.shake {
+  animation: shake 250ms ease-in-out;
+}
+
+body.light-mode .tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
+body.light-mode .tile.flip {
+  transform: rotateX(90deg);
+}
+
+@keyframes shake {
+  10% {
+    transform: translateX(-5%);
+  }
+
+  30% {
+    transform: translateX(5%);
+  }
+
+  50% {
+    transform: translateX(-7.5%);
+  }
+
+  70% {
+    transform: translateX(7.5%);
+  }
+
+  90% {
+    transform: translateX(-5%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes dance {
+  20% {
+    transform: translateY(-50%);
+  }
+
+  40% {
+    transform: translateY(5%);
+  }
+
+  60% {
+    transform: translateY(-25%);
+  }
+
+  80% {
+    transform: translateY(2.5%);
+  }
+
+  90% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Alert styles */
+.alert-container {
+  position: fixed;
+  top: 10vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alert {
+  pointer-events: none;
+  background-color: hsl(0, 0%, 50%);
+  padding: .75em;
+  border-radius: .25em;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+  margin-bottom: .5em;
+}
+
+body.light-mode .alert {
+  background-color: hsl(200, 40%, 90%);
+  color: black;
+}
+
+.alert:last-child {
+  margin-bottom: 0;
+}
+
+.alert.hide {
+  opacity: 0;
+}
+
+#key-n {
+  display: none;
+}
